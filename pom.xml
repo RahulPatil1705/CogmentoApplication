@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -18,20 +19,24 @@
     </properties>
 
     <dependencies>
-        <!-- Cucumber Core -->
+        <!-- Cucumber Dependencies -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-core</artifactId>
             <version>7.14.0</version>
         </dependency>
-
-        <!-- Cucumber Java -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>7.14.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>7.14.0</version>
+            <scope>test</scope>
+        </dependency>
+        
         <!-- TestNG -->
         <dependency>
             <groupId>org.testng</groupId>
@@ -39,53 +44,72 @@
             <version>7.4.0</version>
             <scope>test</scope>
         </dependency>
-
+        
         <!-- Selenium -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>4.16.1</version>
         </dependency>
-
-        <!-- Cucumber TestNG -->
+        
+        <!-- WebDriver Manager -->
         <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-testng</artifactId>
-            <version>7.14.0</version>
-            <scope>test</scope>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>5.5.3</version>
         </dependency>
-
-        <!-- Extent PDF Report -->
+        
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- Extent Reports & Reporting Dependencies -->
         <dependency>
             <groupId>tech.grasshopper</groupId>
             <artifactId>extent-pdf-report</artifactId>
             <version>2.12.0</version>
         </dependency>
-
-        <!-- HTML Extent Reporter -->
         <dependency>
             <groupId>tech.grasshopper</groupId>
             <artifactId>htmlextentreporter</artifactId>
             <version>1.1.0</version>
         </dependency>
-
-        <!-- Extent Reports for Cucumber -->
         <dependency>
             <groupId>tech.grasshopper</groupId>
             <artifactId>extentreports-cucumber7-adapter</artifactId>
             <version>1.10.1</version>
         </dependency>
-
-        <!-- Extent Reports -->
         <dependency>
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
             <version>5.0.9</version>
         </dependency>
+        
+        <!-- JSON Handling -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.17.0</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <!-- Maven Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <release>17</release>
+                </configuration>
+            </plugin>
+            
+            <!-- Maven Surefire Plugin (for running TestNG tests) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -98,7 +122,21 @@
                     <threadCount>4</threadCount>
                 </configuration>
             </plugin>
+            
+            <!-- Maven Failsafe Plugin (for integration tests) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.1.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
 </project>
