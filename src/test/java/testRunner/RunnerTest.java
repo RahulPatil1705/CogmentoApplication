@@ -11,8 +11,9 @@ import io.cucumber.testng.CucumberOptions;
 	    monochrome = true,
 	    plugin = {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
 	    tags = "@Sanity"
-		)
+		) 
 
 public class RunnerTest extends AbstractTestNGCucumberTests {
 }
 
+ 
