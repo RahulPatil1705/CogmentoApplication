@@ -19,6 +19,20 @@ public class HandleActions extends BaseClass {
 	public static void enterUpperCaseText(WebElement wb, String value) {
 		new Actions(driver).keyDown(Keys.SHIFT).sendKeys(Wait.visiblityOf(wb), value).build().perform();
 	}
+	
+	public static void selectElementClickCntAndA(WebElement wb, String value) {
+	    Actions actions = new Actions(driver);
+	    
+	    actions.click(wb) // Click inside the input field
+	           .keyDown(Keys.CONTROL) // Hold Ctrl
+	           .sendKeys("a") // Press 'A' (Select all text)
+	           .keyUp(Keys.CONTROL) // Release Ctrl
+	           .sendKeys(Keys.DELETE) // Delete selected text
+	           .sendKeys(value) // Enter new text
+	           .build()
+	           .perform();
+	}
+
 
 	public static void moveToElement(WebElement wb) {
 		new Actions(driver).moveToElement(Wait.visiblityOf(wb)).build().perform();
