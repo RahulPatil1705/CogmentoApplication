@@ -67,25 +67,56 @@ public class CompanyModuleSteps extends BaseClass {
 
 	@When("user edit the details of company")
 	public void user_edit_the_details_of_company() {
-	
-		companyModulePage.editCompanyDetails("DemoCompanyEdit","https://www.Editdemo.com","editdemo@gmail.com","editDesc");
+
+		companyModulePage.editCompanyDetails("DemoCompanyEdit", "https://www.Editdemo.com", "editdemo@gmail.com",
+				"editDesc");
 	}
+
 	@Then("validate company details edited succefully")
 	public void validate_company_details_edited_succefully() {
-		Map<String,String> validatebleResponse=companyModulePage.validateCompanyEditSuccefully();
-		
-		String companyName=validatebleResponse.get("Company");
+		Map<String, String> validatebleResponse = companyModulePage.validateCompanyEditSuccefully();
+
+		String companyName = validatebleResponse.get("Company");
 		Assert.assertEquals(companyName, "DemoCompanyEdit");
-		
-		String webSite=validatebleResponse.get("Website");
+
+		String webSite = validatebleResponse.get("Website");
 		Assert.assertEquals(webSite, "https://www.Editdemo.com");
-		
-		String email=validatebleResponse.get("Email");
-		boolean emailStatus=email.contains("editdemo@gmail.com");
+
+		String email = validatebleResponse.get("Email");
+		boolean emailStatus = email.contains("editdemo@gmail.com");
 		Assert.assertEquals(true, emailStatus);
-		
+
 //		String desc=validatebleResponse.get("Description");
 //		Assert.assertEquals(desc, "editDesc");		
-		
+
 	}
+
+	@Given("user open the edit company details")
+	public void user_open_the_edit_company_details() {
+		companyModulePage.openEditCompanyDetails();
+	}
+
+	@When("user click on delete button")
+	public void user_click_on_delete_button() {
+		companyModulePage.clickOnDeleteButton();
+	}
+
+	@Then("Confirm Deletion popup should be displayed")
+	public void confirm_deletion_popup_should_be_displayed() {
+		String alertPoppText = companyModulePage.validatedDeletePopUpText();
+		boolean alertStatus = alertPoppText.contains(
+				"Are you sure you want to delete this record? Deleted records can be recovered via the rubbish bin.");
+		Assert.assertEquals(alertStatus, true);
+	}
+
+	@When("click on Ok button")
+	public void click_on_ok_button() {
+		companyModulePage.clickOnDeleteButtonOfAlertPopUp();
+	}
+
+	@Then("Entry should be deleted")
+	public void entry_should_be_deleted() {
+		System.out.println("Entry i deleted");
+	}
+
 }
